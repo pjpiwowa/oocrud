@@ -1,26 +1,47 @@
 <?php
+
+/*
+ * Unlike the Database class in the horrible StarTutorial example, this is
+ * an instantiable(?) object meant to represent a database.
+ */
 class Database 
 {
-	private static $dbName = 'pjpiwowa' ; 
-	private static $dbHost = 'localhost' ;
-	private static $dbUsername = 'pjpiwowa';
-	private static $dbUserPassword = '92dementedlemurs';
-	
+	private $dbName;
+	private $dbHost;
+	private $dbUsername;
+	private $dbUserPassword;
+
+	// This is our database connection, which we do not want duplicated.
 	private static $cont  = null;
 	
-	public function __construct()
+	public function __construct(/* string */ $name, /* string */ $host,
+	                            /* string */ $username, /* string */ $password)
 	{
-		die('Init function is not allowed');
+		$this->dbName = $name;
+		$this->dbHost = $host;
+		$this->dbUsername = $username;
+		$this->dbUserPassword = $password;
+
+		// Get a connection ready to go
+		$this->connect();
 	}
-	
-	public static function connect()
+
+	public function __destruct()
 	{
-		// One connection through whole application
+		$this->disconnect();
+	}
+
+	/*
+	 * Returns a PDO referring to the database, creating a network
+	 * connection if necessary.
+	 */
+	public function connect()
+	{
 		if (null == self::$cont)
 		{
 			try
 			{
-				self::$cont =  new PDO("mysql:host=".self::$dbHost.";"."dbname=".self::$dbName, self::$dbUsername, self::$dbUserPassword);
+				self::$cont =  new PDO("mysql:host=".$this->dbHost.";"."dbname=".$this->dbName, $this->dbUsername, $this->dbUserPassword);
 			}
 			catch(PDOException $e) 
 			{
