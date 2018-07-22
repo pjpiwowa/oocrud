@@ -67,7 +67,6 @@ class cruddy_table
 		 */
 		$cmd = "INSERT INTO $this->name (" . implode(", ", $keys) . ") " .
 		       "VALUES (" . implode(", ", $vals) . ");";
-		       echo $cmd;
 		$pdo = $this->db->connect();
 		$pdo->query($cmd);
 	}
@@ -101,6 +100,18 @@ class cruddy_table
 		$cmd = "UPDATE $this->name SET " . implode(", ", $pairs) . " WHERE id = $id;";
 		$pdo = $this->db->connect();
 		$pdo->query($cmd);
+	}
+
+	/*
+	 * Delete the row matching $id.
+	 */
+	public function del_row (/* integer */ $id)
+	{
+		$pdo = $db->connect();
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "DELETE FROM customers  WHERE id = ?";
+		$q = $pdo->prepare($sql);
+		$q->execute(array($id));
 	}
 
 	/*

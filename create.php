@@ -45,7 +45,7 @@
 
 			$tbl->add_row(array("name" => $name, "email" => $email, "mobile" => $mobile));
 
-			//header("Location: index.php");
+			header("Location: index.php");
 		}
 	}
 /*
