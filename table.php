@@ -107,11 +107,10 @@ class cruddy_table
 	 */
 	public function del_row (/* integer */ $id)
 	{
-		$pdo = $db->connect();
-		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql = "DELETE FROM customers  WHERE id = ?";
-		$q = $pdo->prepare($sql);
-		$q->execute(array($id));
+		$pdo = $this->db->connect();
+		//$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$cmd = "DELETE FROM customers  WHERE id = $id";
+		$pdo->query($cmd);
 	}
 
 	/*
