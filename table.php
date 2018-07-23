@@ -160,10 +160,11 @@ class cruddy_table
 		foreach (array_values($this->fields) as $field)
 		{
 			
-			echo "<th>$field</th>\n";
+			$ret = $ret . "<th>$field</th>\n";
 		}
+		$ret = $ret . "<th></th>";
 
-		echo '
+		$ret = $ret . '
 				</tr>
 			</thead>
 			<tbody>';
@@ -183,7 +184,10 @@ class cruddy_table
 				';
 				foreach (array_keys($this->fields) as $field)
 				{
-					$ret = $ret . '<td>' . $row[$field] . '<td> ';
+					if (!empty($field))
+					{
+						$ret = $ret . '<td>' . $row[$field] . '</td> ';
+					}
 				}
 				$ret = $ret . '
 					<td width="250">
