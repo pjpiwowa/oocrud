@@ -50,7 +50,7 @@
 		if ($valid)
 		{
 			$db = new Database($DB_NAME, $DB_HOST, $DB_USER, $DB_PASS);
-			$tbl = new cruddy_table($db, "customers", array("name", "email", "mobile"));
+			$tbl = new cruddy_table($db, "customers", array("name" => "Name", "email" => "Email Address", "mobile" => "Phone Number"));
 
 			$tbl->mod_row($id, array("name" => $name, "email" => $email, "mobile" => $mobile));
 
@@ -62,7 +62,7 @@
 		// Populate the form with current contents.
 
 		$db = new Database($DB_NAME, $DB_HOST, $DB_USER, $DB_PASS);
-		$tbl = new cruddy_table($db, "customers", array("name", "email", "mobile"));
+		$tbl = new cruddy_table($db, "customers", array("name" => "Name", "email" => "Email Address", "mobile" => "Phone Number"));
 
 		$data = $tbl->get_row($id);
 
